@@ -1,0 +1,15 @@
+*{margin: 0; padding: 0;}
+header .header{
+	background-image: url(https://humg.edu.vn/content/tintuc/PublishingImages/dai-hoc-mo-dia-chat.jpg);
+	background-repeat: no-repeat;
+    background-position: center center;
+    background-size: cover;
+    padding: 56px;
+    font-size: 84px;
+    color: #ff0505;
+    text-align: center;
+    text-transform:  uppercase;
+}
+body{
+	background-color: #d9f1f4;
+}
