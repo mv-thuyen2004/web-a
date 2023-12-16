@@ -21,7 +21,7 @@
   
         $user = $_POST['user'];
         $password = md5($_POST['pswd']);
-        $sql = "SELECT `TaiKhoan` , `MatKhau`  FROM NguoiDung WHERE TaiKhoan='$user' AND MatKhau='$password'";
+        $sql = "SELECT `TaiKhoan` , `MatKhau`, `Quyen`  FROM NguoiDung WHERE TaiKhoan='$user' AND MatKhau='$password'";
         $result=$conn ->query($sql);
         $row =$result->fetch_assoc();
         $_SESSION['user'] = $user;
@@ -39,14 +39,39 @@
         
     
         }
-        
+        if ($row['Quyen']==1){
         echo '
         <script>
         
-          alert("bạn đã đăng nhập thành công");
+          alert("bạn đã đăng nhập thành công với tư cách là quản trị viên");
           window.location.href = "index.php";
         
-        </script> ';
+        </script> ';}
+        else if ($row['Quyen']==2){
+          echo '
+          <script>
+          
+            alert("bạn đã đăng nhập thành công với tư cách là giáo viên");
+            window.location.href = "";
+          
+          </script> ';}
+        else if ($row['Quyen']==3){
+            echo '
+            <script>
+            
+              alert("bạn đã đăng nhập thành công với tư cách là học sinh");
+              window.location.href = "";
+            
+            </script> ';}  
+        echo '
+          <script>
+          
+            alert("dumamay");
+           
+            
+          
+          
+          </script> ';
 
         $conn->close();
       
