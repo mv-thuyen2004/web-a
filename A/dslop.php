@@ -13,8 +13,8 @@
     require('header.php');
     mysqli_set_charset($conn,'UTF8');
     if (isset($_GET['idxoa'])){
-        $ys=$_GET['idxoa'];
-        $sql="DELETE FROM lop WHERE `MaLop` = '$ys' ";
+        $idxoa=$_GET['idxoa'];
+        $sql="DELETE FROM lop WHERE `MaLop` = '$idxoa' ";
         $result= $conn->query($sql);
         echo '
             <script>
@@ -27,7 +27,7 @@
 
 
 <div class="container mt-3">
-  <h2>Danh Sách Sinh viên</h2>
+  <h2>Danh Sách Lớp</h2>
               
   <table class="table table-striped">
     <thead>
@@ -50,7 +50,7 @@
             echo     ' <td>'.$row['KhoaHoc'].'</td>';
             echo '</td>';
             if($_SESSION['quyen']==1){
-            echo "<td><a href='sualop.php' style='text-decoration:none; color:green' >sửa    </a><a href='dslop.php?idxoa=".$row['MaLop']. "' style='text-decoration:none;color:red'>xóa</a></td>";
+            echo "<td><a href='sualop.php?malop=".$row['MaLop']."' style='text-decoration:none; color:green' >sửa    </a><a href='dslop.php?idxoa=".$row['MaLop']. "' style='text-decoration:none;color:red'>xóa</a></td>";
             }
             else if ($_SESSION['quyen']==2){
               echo "<td><a href='dssv.php?malop=".$row['MaLop']. "' style='text-decoration:none;color:red'>danh sách sinh viên</a></td>";
@@ -75,7 +75,7 @@
 if ($_SESSION['quyen']==1){
   echo "
 <a href='themlop.php' ><button id='add' class='btn btn-success' style='margin-left:50% ' >add</button></a>
-<input type='button' class='btn btn-secondary' name='btnCancel' value='trở về' onclick='history.back(1)'>
+<a href='index.php'><button class='btn btn-secondary' style='float:right '>trở về</button></a>
  ";
 }
 

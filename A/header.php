@@ -27,13 +27,12 @@ body{
 </head>
 <body>
     <header>
-    <div class="header">Thông Tin Sinh Viên</div>
+    <div class="header">Thông Tin Sinh Viên </div>
+    <marquee>nhóm 3 môn phát triển ứng dụng web </marquee>
+    
     <?php
     session_start();
     if(isset($_SESSION['user'])): ?>
 			<a href="login.php" style="text-decoration: none; float: right;"><button class="btn btn-danger">log out</button></a>
 		<?php endif; ?>
     </header>
-    
-</body>
-</html>

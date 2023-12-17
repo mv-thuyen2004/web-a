@@ -85,7 +85,7 @@ if ($_SESSION['quyen']==1){
 }
 ?>
 
-<input type="button" class="btn btn-secondary" name="btnCancel" value="trở về" onclick="history.back(1)">
+<a href='index.php'><button class="btn btn-secondary" style='float:right '>trở về</button></a>
 
 
 
