@@ -49,7 +49,14 @@
             echo '<td>'. $row['TenLop'].'<?td>';
             echo     ' <td>'.$row['KhoaHoc'].'</td>';
             echo '</td>';
+            if($_SESSION['quyen']==1){
             echo "<td><a href='sualop.php' style='text-decoration:none; color:green' >sửa    </a><a href='dslop.php?idxoa=".$row['MaLop']. "' style='text-decoration:none;color:red'>xóa</a></td>";
+            }
+            else if ($_SESSION['quyen']==2){
+              echo "<td><a href='dssv.php?malop=".$row['MaLop']. "' style='text-decoration:none;color:red'>danh sách sinh viên</a></td>";
+            
+            
+            }
         
 
 
@@ -64,8 +71,15 @@
     </tbody>
   </table>
 </div>
-<a href='themlop.php' ><button id='add' class="btn btn-success" style="margin-left:50% " >add</button></a>
-<a href='index.php'><button href="index.php" id="myButto" class="btn btn-secondary" >trở về</button></a>
+<?php
+if ($_SESSION['quyen']==1){
+  echo "
+<a href='themlop.php' ><button id='add' class='btn btn-success' style='margin-left:50% ' >add</button></a>
+<input type='button' class='btn btn-secondary' name='btnCancel' value='trở về' onclick='history.back(1)'>
+ ";
+}
+
+?>
 
 
 

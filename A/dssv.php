@@ -21,8 +21,14 @@
         </script> '; 
     }
     mysqli_set_charset($conn,'UTF8');
+    if ($_SESSION['quyen']==1){
     $sql="SELECT `MSV` , `Ten`,`TenLop` FROM thongtinsinhvien INNER JOIN lop ON lop.IdLop=thongtinsinhvien.IdLop ";
     $result= $conn->query($sql);
+    }
+    else if ($_SESSION['quyen']==2){
+    $sql="SELECT `MSV` , `Ten`,`TenLop` FROM thongtinsinhvien INNER JOIN lop ON lop.IdLop=thongtinsinhvien.IdLop WHERE lop.MaLop='".$_GET['malop']."'";
+    $result= $conn->query($sql);
+    }
 ?>
 
 
@@ -49,14 +55,22 @@
             echo '<td>'. $row['Ten'].'<?td>';
             echo ' <td>'.$row['TenLop'].'</td>';
             echo '</td>';
-            echo "<td><a href='suasinhvien.php' style='text-decoration:none; color:green' >sửa    </a><a  href='dssv.php?idxoa=".$row['MSV']. "'style='text-decoration:none;color:red'>xóa</a></td>";
+            
         
+            if ($_SESSION['quyen']==1){
+              echo "<td><a href='suasinhvien.php' style='text-decoration:none; color:green' >sửa    </a><a  href='dssv.php?idxoa=".$row['MSV']. "'style='text-decoration:none;color:red'>xóa</a></td>";
+              }
+            else if ($_SESSION['quyen']==2){
+
+                echo "<td><a  href='suadiem.php?msv=".$row['MSV']. "'style='text-decoration:none;color:green'>sửa điểm</a></td>";
+
+              }
 
 
         }
     }
     else{
-        echo 'no flight in database';
+        echo ' bạn không dạy học sinh nào trong lớp này';
     }
     
     $conn->close();
@@ -64,8 +78,15 @@
     </tbody>
   </table>
 </div>
-<a href='index.php' ><button id='add' class="btn btn-success" style="margin-left:50% " >add</button></a>
-<a href='index.php'><button href="index.php" id="myButto" class="btn btn-secondary" >trở về</button></a>
+<?php
+if ($_SESSION['quyen']==1){
+  echo "
+<a href='index.php' ><button id='add' class='btn btn-success' style='margin-left:50% ' >add</button></a> ";
+}
+?>
+
+<input type="button" class="btn btn-secondary" name="btnCancel" value="trở về" onclick="history.back(1)">
+
 
 
 

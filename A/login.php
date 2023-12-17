@@ -21,10 +21,13 @@
   
         $user = $_POST['user'];
         $password = md5($_POST['pswd']);
-        $sql = "SELECT `TaiKhoan` , `MatKhau`, `Quyen`  FROM NguoiDung WHERE TaiKhoan='$user' AND MatKhau='$password'";
+        $sql = "SELECT `IdTaiKhoan`,`TaiKhoan` , `MatKhau`, `Quyen`  FROM NguoiDung WHERE TaiKhoan='$user' AND MatKhau='$password'";
         $result=$conn ->query($sql);
         $row =$result->fetch_assoc();
+
         $_SESSION['user'] = $user;
+        $_SESSION['quyen']= $row['Quyen'];
+        $_SESSION['IdTaiKhoan']=$row['IdTaiKhoan'];
         if ($result ->num_rows ==0){
           echo '
           <script>
@@ -52,7 +55,7 @@
           <script>
           
             alert("bạn đã đăng nhập thành công với tư cách là giáo viên");
-            window.location.href = "";
+            window.location.href = "dslop.php";
           
           </script> ';}
         else if ($row['Quyen']==3){
