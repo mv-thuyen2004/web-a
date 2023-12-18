@@ -81,7 +81,7 @@
 <?php
 if ($_SESSION['quyen']==1){
   echo "
-<a href='index.php' ><button id='add' class='btn btn-success' style='margin-left:50% ' >add</button></a> ";
+<a href='themsinhvien.php' ><button id='add' class='btn btn-success' style='margin-left:50% ' >thêm học sinh</button></a> ";
 }
 ?>
 

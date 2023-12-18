@@ -14,14 +14,17 @@
     mysqli_set_charset($conn,'UTF8');
     if (isset($_GET['idxoa'])){
         $idxoa=$_GET['idxoa'];
-        $sql="DELETE FROM lop WHERE `MaLop` = '$idxoa' ";
-        $result= $conn->query($sql);
+        $sql1="DELETE FROM thongtinsinhvien WHERE `IdLop` = '$idxoa' ";
+        $sql2="DELETE FROM lop WHERE `IdLop` = '$idxoa' ";
+
+        $result1= $conn->query($sql1);
+        $result2=$conn->query($sql2);
         echo '
             <script>
               alert("bạn xóa lớp thành công ");
             </script> '; 
         }
-    $sql="SELECT `MaLop` , `TenLop`,`KhoaHoc` FROM lop  ";
+    $sql="SELECT `IdLop` , `MaLop` , `TenLop`,`KhoaHoc` FROM lop  ";
     $result= $conn->query($sql);
 ?>
 
@@ -50,7 +53,7 @@
             echo     ' <td>'.$row['KhoaHoc'].'</td>';
             echo '</td>';
             if($_SESSION['quyen']==1){
-            echo "<td><a href='sualop.php?malop=".$row['MaLop']."' style='text-decoration:none; color:green' >sửa    </a><a href='dslop.php?idxoa=".$row['MaLop']. "' style='text-decoration:none;color:red'>xóa</a></td>";
+            echo "<td><a href='sualop.php?malop=".$row['MaLop']."' style='text-decoration:none; color:green' >sửa   </a><a href='dslop.php?idxoa=".$row['IdLop']. "' style='text-decoration:none;color:red'>xóa</a></td>";
             }
             else if ($_SESSION['quyen']==2){
               echo "<td><a href='dssv.php?malop=".$row['MaLop']. "' style='text-decoration:none;color:red'>danh sách sinh viên</a></td>";
@@ -74,7 +77,7 @@
 <?php
 if ($_SESSION['quyen']==1){
   echo "
-<a href='themlop.php' ><button id='add' class='btn btn-success' style='margin-left:50% ' >add</button></a>
+<a href='themlop.php' ><button id='add' class='btn btn-success' style='margin-left:50% ' >thêm lớp</button></a>
 <a href='index.php'><button class='btn btn-secondary' style='float:right '>trở về</button></a>
  ";
 }

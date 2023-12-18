@@ -1,32 +1,54 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
-</head>
-<body>
+
     <?php
-    require("header");
+    require("header.php");
+    require('connection.php');
+       $IdLop=[];
+       $sql="SELECT * FROM lop";
+       $result= $conn->query($sql);
+       $rows=0;
+       while($row=$result->fetch_assoc()) //doc tung dong cua ket qua
+            {
+                if (!(in_array($row['IdLop'],$IdLop))){
+                    $IdLop[$rows][0]= $row['IdLop'];
+                    $IdLop[$rows][1]= $row['MaLop'];
+                    $rows++;
+                }
+            }    
+        $conn->close();
+        if(isset($_GET['submit'])){
+          
+          require('connection.php');
+          $sql="INSERT INTO `thongtinsinhvien`( `Ten`, `IdLop`) VALUES ('".$_GET['ten']."','".$_GET['IdLop']."')";
+          $result= $conn->query($sql);
+          $conn->close();
+          echo '
+        <script>
+        
+          alert("bạn đã Thêm Học Sinh thành công");
+          window.location.href = "dssv.php";
+        
+        </script> ';
+        }
+      
     ?>
     <h1>trang này đang được hoàn thành</h1>
     <div class="container mt-3">
-  <h2>Stacked form</h2>
-  <form action="/action_page.php">
+  <h2>nhập thông tin học sinh</h2>
+  <form action="" method="get">
     <div class="mb-3 mt-3">
-      <label for="email">Email:</label>
-      <input type="email" class="form-control" id="email" placeholder="Enter email" name="email">
+      <label for="ten">tên sinh viên:</label>
+      <input type="text" class="form-control" id="ten" placeholder="nhập tên sinh viên" name="ten">
     </div>
-    <div class="mb-3">
-      <label for="pwd">Password:</label>
-      <input type="password" class="form-control" id="pwd" placeholder="Enter password" name="pswd">
-    </div>
-    <div class="form-check mb-3">
-      <label class="form-check-label">
-        <input class="form-check-input" type="checkbox" name="remember"> Remember me
-      </label>
-    </div>
-    <button type="submit" class="btn btn-primary">Submit</button>
+    <label for="malop">chọn lớp:</label>
+      <select class="form-select" id="malop" name='IdLop'>
+        <?php 
+        foreach ($IdLop as $value) {
+            echo "<option value=".$value[0].">".$value[1]."</option>";
+          };
+        ?>
+      </select>
+    
+    <button type="submit" class="btn btn-primary" name="submit">Thêm học sinh</button>
   </form>
 </div>
 </body>
