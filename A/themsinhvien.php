@@ -50,6 +50,7 @@
     
     <button type="submit" class="btn btn-primary" name="submit">Thêm học sinh</button>
   </form>
+  <a href='dssv.php'><button class="btn btn-secondary" >hủy bỏ</button></a>
 </div>
 </body>
 </html>

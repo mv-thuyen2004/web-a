@@ -1,12 +1,4 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
-    
-</head>
-<body>
+
 
 <?php
     require 'connection.php';
@@ -58,7 +50,7 @@
             
         
             if ($_SESSION['quyen']==1){
-              echo "<td><a href='suasinhvien.php' style='text-decoration:none; color:green' >sửa    </a><a  href='dssv.php?idxoa=".$row['MSV']. "'style='text-decoration:none;color:red'>xóa</a></td>";
+              echo "<td><a href='suasinhvien.php?MSV=".$row['MSV']."' style='text-decoration:none; color:green' >sửa    </a><a  href='dssv.php?idxoa=".$row['MSV']. "'style='text-decoration:none;color:red'>xóa</a></td>";
               }
             else if ($_SESSION['quyen']==2){
 
@@ -81,7 +73,7 @@
 <?php
 if ($_SESSION['quyen']==1){
   echo "
-<a href='themsinhvien.php' ><button id='add' class='btn btn-success' style='margin-left:50% ' >thêm học sinh</button></a> ";
+<a href='themsinhvien.php?' ><button id='add' class='btn btn-success' style='margin-left:50% ' >thêm học sinh</button></a> ";
 }
 ?>
 
