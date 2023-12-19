@@ -73,11 +73,14 @@
 <?php
 if ($_SESSION['quyen']==1){
   echo "
-<a href='themsinhvien.php?' ><button id='add' class='btn btn-success' style='margin-left:50% ' >thêm học sinh</button></a> ";
+<a href='themsinhvien.php?' ><button id='add' class='btn btn-success' style='margin-left:50% ' >thêm học sinh</button></a>
+<a href='index.php'><button class='btn btn-secondary' style='float:right '>trở về</button></a> ";
+}
+else if ($_SESSION['quyen']==2){
+  echo "<a href='dslop.php'><button class='btn btn-secondary' style='float:right '>trở về</button></a>";
 }
 ?>
 
-<a href='index.php'><button class="btn btn-secondary" style='float:right '>trở về</button></a>
 
 
 
