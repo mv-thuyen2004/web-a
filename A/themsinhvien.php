@@ -1,6 +1,11 @@
 
     <?php
+    session_start();
     require("header.php");
+    if (!isset($_SESSION['user'])) {
+      header('Location: login.php');
+      exit;
+    }
     require('connection.php');
        $IdLop=[];
        $sql="SELECT * FROM lop";
@@ -53,4 +58,6 @@
   <a href='dssv.php'><button class="btn btn-secondary" >hủy bỏ</button></a>
 </div>
 </body>
+<?php
+require('footer.php');?>
 </html>

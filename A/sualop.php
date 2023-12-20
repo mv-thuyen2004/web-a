@@ -1,5 +1,9 @@
 <?php
-
+session_start();
+if (!isset($_SESSION['user'])) {
+  header('Location: login.php');
+  exit;
+}
 require 'connection.php';
 require('header.php');
 mysqli_set_charset($conn,'UTF8');
@@ -53,4 +57,6 @@ echo 'trang này sẽ sớm được hoàn thành';
   <a href='dslop.php'><button class="btn btn-secondary" >hủy bỏ</button></a>
 </div>
 </body>
+<?php
+require('footer.php');?>
 </html>

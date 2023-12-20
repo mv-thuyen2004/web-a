@@ -1,14 +1,4 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
-    <title>Document</title>
-    
-</head>
-<body>
+
     <?php
     session_start();
     unset($_SESSION['user']);
@@ -63,7 +53,7 @@
             <script>
             
               alert("bạn đã đăng nhập thành công với tư cách là học sinh");
-              window.location.href = "";
+              window.location.href = "txsv.php";
             
             </script> ';}  
         echo '
@@ -85,7 +75,7 @@
 <div class="container mt-3" >
   <h2>ĐĂNG NHẬP</h2>
   
-  <form action="" method='POST' style="width:40% ;padding:center" >
+  <form action="" method='POST' style="width:40%  ;padding:center ; margin: 0px 0px 100px 0px" >
     <div class="mb-3 mt-3">
       <label for="user">User:</label>
       <input type="text" class="form-control" id="user" placeholder="Enter user" name="user">
@@ -101,4 +91,6 @@
 </div>
 </center>
 </body>
+<?php
+require('footer.php');?>
 </html>

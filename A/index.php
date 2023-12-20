@@ -7,7 +7,11 @@
 </head>
 <body>
     <?php 
-    require("header.php")
+    require("header.php");
+    if (!isset($_SESSION['user'])) {
+      header('Location: login.php');
+      exit;
+  }
     ?>
 <div class="container mt-5">
   <table class="table">
@@ -37,4 +41,6 @@
   
 </div>
 </body>
+<?php
+require('footer.php');?>
 </html>

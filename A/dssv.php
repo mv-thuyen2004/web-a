@@ -1,6 +1,11 @@
 
 
 <?php
+session_start();
+if (!isset($_SESSION['user'])) {
+  header('Location: login.php');
+  exit;
+}
     require 'connection.php';
     require('header.php');
     if (isset($_GET['idxoa'])){
@@ -86,4 +91,6 @@ else if ($_SESSION['quyen']==2){
 
 
 </body>
+<?php
+require('footer.php');?>
 </html>

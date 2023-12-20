@@ -7,7 +7,13 @@
 </head>
 <body>
     <?php
+    session_start();
+    if (!isset($_SESSION['user'])) {
+      header('Location: login.php');
+      exit;
+    }
     require('header.php');
+
     if (isset($_POST['submit'])){
     $MaLop=$_POST['MaLop'];
     $TenLop=$_POST['TenLop'];
@@ -47,4 +53,6 @@
   <a href='dslop.php'><button class="btn btn-secondary" >hủy bỏ</button></a>
 </div>
 </body>
+<?php
+require('footer.php');?>
 </html>
