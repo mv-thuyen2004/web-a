@@ -1,19 +1,16 @@
-
-    <?php
+<?php
     session_start();
     unset($_SESSION['user']);
     require('header.php');
-    
-    
+    // kiểm tra tài khoản
     if (isset($_POST['submit'] )){
-    
     require('connection.php');
-  
         $user = $_POST['user'];
         $password = md5($_POST['pswd']);
         $sql = "SELECT `IdTaiKhoan`,`TaiKhoan` , `MatKhau`, `Quyen`  FROM NguoiDung WHERE TaiKhoan='$user' AND MatKhau='$password'";
         $result=$conn ->query($sql);
         $row =$result->fetch_assoc();
+        
 
         $_SESSION['user'] = $user;
         $_SESSION['quyen']= $row['Quyen'];
@@ -21,17 +18,14 @@
         if ($result ->num_rows ==0){
           echo '
           <script>
-          
             alert("tên đăng nhập hoặc mật khẩu không đúng bạn vui lòng nhập lại");
             window.location.href = "";
-            
-          
-          
           </script> ';
           
         
     
         }
+        // kiểm tra xem tài khoản này thuộc loại nào
         if ($row['Quyen']==1){
         echo '
         <script>
@@ -52,29 +46,16 @@
             echo '
             <script>
             
-              alert("bạn đã đăng nhập thành công với tư cách là học sinh");
+              alert("bạn đã đăng nhập thành công với tư cách là sinh viên");
               window.location.href = "txsv.php";
             
             </script> ';}  
-        echo '
-          <script>
-          
-            alert("dumamay");
-           
-            
-          
-          
-          </script> ';
-
         $conn->close();
-      
-
     };
     ?>
-    <center>
+<center>
 <div class="container mt-3" >
   <h2>ĐĂNG NHẬP</h2>
-  
   <form action="" method='POST' style="width:40%  ;padding:center ; margin: 0px 0px 100px 0px" >
     <div class="mb-3 mt-3">
       <label for="user">User:</label>
@@ -84,7 +65,6 @@
       <label for="pwd">Password:</label>
       <input type="password" class="form-control" id="pwd" placeholder="Enter password" name="pswd">
     </div>
-    
     <button type="submit" name ="submit" class="btn btn-primary">ĐĂNG NHẬP</button>
   </form>
   

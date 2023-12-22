@@ -5,9 +5,11 @@ if (!isset($_SESSION['user'])) {
   header('Location: login.php');
   exit;
 }
+
     require 'connection.php';
     require('header.php');
     mysqli_set_charset($conn,'UTF8');
+    // xử lý khi xóa lớp thì nó sẽ xóa lớp và tất cả sinh viên của lớp đó
     if (isset($_GET['idxoa'])){
         $idxoa=$_GET['idxoa'];
         $sql1="DELETE FROM thongtinsinhvien WHERE `IdLop` = '$idxoa' ";
@@ -20,14 +22,14 @@ if (!isset($_SESSION['user'])) {
               alert("bạn xóa lớp thành công ");
             </script> '; 
         }
+    // truy xuất thông tin các lớp
     $sql="SELECT `IdLop` , `MaLop` , `TenLop`,`KhoaHoc` FROM lop  ";
     $result= $conn->query($sql);
 ?>
 
-
+<!-- in ra thông tin lớp học-->
 <div class="container mt-3">
-  <h2>Danh Sách Lớp</h2>
-              
+  <h2>Danh Sách Lớp</h2>  
   <table class="table table-striped">
     <thead>
       <tr>
@@ -48,6 +50,7 @@ if (!isset($_SESSION['user'])) {
             echo '<td>'. $row['TenLop'].'<?td>';
             echo     ' <td>'.$row['KhoaHoc'].'</td>';
             echo '</td>';
+            // nếu đăng nhập bằng admin sẽ có chức năng sửa lớp và xóa lớp
             if($_SESSION['quyen']==1){
             echo "<td><a href='sualop.php?malop=".$row['MaLop']."' style='text-decoration:none; color:green;padding-left:20px' ><svg xmlns='http://www.w3.org/2000/svg' width='16' height='16' fill='currentColor' class='bi bi-pencil-square' viewBox='0 0 16 16'>
             <path d='M15.502 1.94a.5.5 0 0 1 0 .706L14.459 3.69l-2-2L13.502.646a.5.5 0 0 1 .707 0l1.293 1.293zm-1.75 2.456-2-2L4.939 9.21a.5.5 0 0 0-.121.196l-.805 2.414a.25.25 0 0 0 .316.316l2.414-.805a.5.5 0 0 0 .196-.12l6.813-6.814z'/>
@@ -68,7 +71,7 @@ if (!isset($_SESSION['user'])) {
         }
     }
     else{
-        echo 'no flight in database';
+        echo 'không có lớp nào trong cơ sở dữ liệu';
     }
     
     $conn->close();
@@ -77,6 +80,7 @@ if (!isset($_SESSION['user'])) {
   </table>
 </div>
 <?php
+// khi đăng nhập bằng admin sẽ thêm chức năng thêm lớp
 if ($_SESSION['quyen']==1){
   echo "
 <a href='themlop.php' ><button id='add' class='btn btn-success' style='margin-left:50% ' >thêm lớp</button></a>

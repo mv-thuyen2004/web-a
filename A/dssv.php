@@ -4,8 +4,11 @@ if (!isset($_SESSION['user'])) {
   header('Location: login.php');
   exit;
 }
+
     require 'connection.php';
     require('header.php');
+
+    //xử lý xóa học sinh
     if (isset($_GET['idxoa'])){
     $ys=$_GET['idxoa'];
     $sql="DELETE FROM thongtinsinhvien WHERE `MSV` = $ys ";
@@ -16,22 +19,20 @@ if (!isset($_SESSION['user'])) {
         </script> '; 
     }
 
-
-       $IdLop=[];
-       $sql="SELECT * FROM lop";
-       $result= $conn->query($sql);
-       $rows=0;
-       while($row=$result->fetch_assoc()) //doc tung dong cua ket qua
-            {
-                if (!(in_array($row['IdLop'],$IdLop))){
-                    $IdLop[$rows][0]= $row['IdLop'];
-                    $IdLop[$rows][1]= $row['MaLop'];
-                    $rows++;
-                }
-            }    
-
-
-
+    // lấy tên các lớp
+    $IdLop=[];
+    $sql="SELECT * FROM lop";
+    $result= $conn->query($sql);
+    $rows=0;
+    while($row=$result->fetch_assoc()) 
+        {
+          if (!(in_array($row['IdLop'],$IdLop))){
+              $IdLop[$rows][0]= $row['IdLop'];
+              $IdLop[$rows][1]= $row['MaLop'];
+              $rows++;
+              }
+        }    
+    // xử lý để in thông tin của học sinh cần tìm kiếm khi đăng nhập bằng chức vụ admin
     mysqli_set_charset($conn,'UTF8');
     if ($_SESSION['quyen']==1  ){
       
@@ -58,6 +59,7 @@ if (!isset($_SESSION['user'])) {
     }
 
 
+    // xử lý để in thông tin học khi đăng nhập với quyền là giáo viên
     else if ($_SESSION['quyen']==2){
     $sql="SELECT `MSV` , `Ten`,`TenLop` FROM thongtinsinhvien INNER JOIN lop ON lop.IdLop=thongtinsinhvien.IdLop WHERE lop.MaLop='".$_GET['malop']."'";
     $result= $conn->query($sql);
@@ -71,7 +73,7 @@ if (!isset($_SESSION['user'])) {
     }}
 ?>
 
-
+<!-- thanh tìm kiếm -->
 <div class="container mt-3">
 <form method="get" action="">
     <div class="row">
@@ -82,11 +84,8 @@ if (!isset($_SESSION['user'])) {
       if ($_SESSION['quyen']==1  ){
       echo "
       <div class='col'>
-        
       <select class='form-select' id='malop' name='IdLop'>
         <option selected disabled>chọn lớp</option>";
-
-      
         foreach ($IdLop as $value) {
             echo "<option value=".$value[0].">".$value[1]."</option>";
           };
@@ -99,8 +98,9 @@ if (!isset($_SESSION['user'])) {
       </div>
     </div>
   </form>
-  <h2>Danh Sách Sinh viên</h2>
-              
+
+<!-- in ra danh sách sinh viên-->
+  <h2>Danh Sách Sinh viên</h2>         
   <table class="table table-striped">
     <thead>
       <tr>
@@ -133,12 +133,8 @@ if (!isset($_SESSION['user'])) {
             </svg></a></td>";
               }
             else if ($_SESSION['quyen']==2){
-
                 echo "<td><a  href='suadiem.php?msv=".$row['MSV']. "'style='text-decoration:none;color:green'>sửa điểm</a></td>";
-
               }
-
-
         }
     }
     else{
@@ -151,6 +147,7 @@ if (!isset($_SESSION['user'])) {
   </table>
 </div>
 <?php
+// khi đăng nhập bằng những quyền khác nhau thì sẽ hiện ra những nút có chức năng khác nhau
 if ($_SESSION['quyen']==1){
   echo "
 <a href='themsinhvien.php?' ><button id='add' class='btn btn-success' style='margin-left:50% ' >thêm học sinh</button></a>
@@ -160,10 +157,6 @@ else if ($_SESSION['quyen']==2){
   echo "<a href='dslop.php'><button class='btn btn-secondary' style='float:right '>trở về</button></a>";
 }
 ?>
-
-
-
-
 
 </body>
 <?php

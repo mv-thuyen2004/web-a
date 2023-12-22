@@ -29,11 +29,15 @@ if (!isset($_SESSION['user'])) {
     exit;
 }
 require('connection.php');
+if (isset($_GET['MSV'])){
+    $msv=$_GET['MSV'];
+
+}
+else{
+$msv=$_SESSION['user'];}
 mysqli_set_charset($conn, 'UTF8');
-$sql = "SELECT  * FROM Thongtinsinhvien INNER JOIN Lop ON Thongtinsinhvien.IdLop = Lop.IdLop WHERE Thongtinsinhvien.MSV = '" . $_SESSION['user'] . "'";
-
+$sql = "SELECT  * FROM Thongtinsinhvien INNER JOIN Lop ON Thongtinsinhvien.IdLop = Lop.IdLop WHERE Thongtinsinhvien.MSV = '" . $msv . "'";
 $result = $conn->query($sql);
-
 ?>
 
 
@@ -53,7 +57,7 @@ $result = $conn->query($sql);
             ?>
             <?php
 
-$sql2 = "SELECT  * FROM Diem INNER JOIN Mon ON Diem.IdMon = Mon.IdMon WHERE Diem.MSV = '" . $_SESSION['user'] . "'";
+$sql2 = "SELECT  * FROM Diem INNER JOIN Mon ON Diem.IdMon = Mon.IdMon WHERE Diem.MSV = '" . $msv . "'";
 $result2 = $conn->query($sql2);
 ?>
 <div class="container mt-3">
@@ -91,17 +95,17 @@ $result2 = $conn->query($sql2);
                             
                           </tr>';
                 }
-            }
+            }          
+            ?>
             
-?>
-        
-
-            
-
-            </tbody>
         </table>
     </div>
 </div>
+<?php
+if ($_SESSION['quyen']==2){
+    echo "<a href='dssv.php'><button class='btn btn-secondary' style='float:right '>danh sách sinh viên</button></a>";
+}
+?>
 </body>
 <?php
 require('footer.php');?>
